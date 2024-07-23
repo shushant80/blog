@@ -1,15 +1,15 @@
 <template>
   <div class="auth-container">
-    <div v-if="isSignUp">
+    <div v-if="state.isSignUp">
       <h1>Sign Up</h1>
       <form @submit.prevent="signUp">
         <div class="form-group">
           <label for="newUserId">User ID</label>
-          <input type="text" v-model="newUserId" id="newUserId" required />
+          <input type="text" v-model="state.newUserId" id="newUserId" required />
         </div>
         <div class="form-group">
           <label for="newPassword">Password</label>
-          <input type="password" v-model="newPassword" id="newPassword" required />
+          <input type="password" v-model="state.newPassword" id="newPassword" required />
         </div>
         <button type="submit">Sign Up</button>
         <button type="button" @click="toggleAuth">Already have an account? Login</button>
@@ -20,11 +20,11 @@
       <form @submit.prevent="loginWithCustomCredentials">
         <div class="form-group">
           <label for="userId">User ID</label>
-          <input type="text" v-model="userId" id="userId" required />
+          <input type="text" v-model="state.userId" id="userId" required />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" v-model="password" id="password" required />
+          <input type="password" v-model="state.password" id="password" required />
         </div>
         <button type="submit">Login</button>
         <button type="button" @click="toggleAuth">Don't have an account? Sign Up</button>
@@ -35,52 +35,64 @@
 </template>
 
 <script>
+import { ref } from 'vue'; // Import ref for reactive state
+import { useRouter } from 'vue-router';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 export default {
   name: 'AuthPage',
-  data() {
-    return {
+  setup() {
+    const router = useRouter(); // Create a router instance
+
+    const state = ref({
       userId: '',
       password: '',
       newUserId: '',
       newPassword: '',
-      isSignUp: false 
-    };
-  },
-  methods: {
-    loginWithGoogle() {
+      isSignUp: false
+    });
+
+    const loginWithGoogle = () => {
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
       signInWithPopup(auth, provider)
         .then(() => {
-          this.$router.push('/');
+          router.push('/'); // Redirect to homepage
         })
         .catch((error) => {
           console.error('Error logging in with Google:', error);
         });
-    },
-    loginWithCustomCredentials() {
+    };
+
+    const loginWithCustomCredentials = () => {
       const customUserId = 'customUser';
       const customPassword = 'customPassword';
 
-      if (this.userId === customUserId && this.password === customPassword) {
+      if (state.value.userId === customUserId && state.value.password === customPassword) {
         localStorage.setItem('authenticated', 'true');
-        this.$router.push('/');
+        router.push('/'); // Redirect to homepage
       } else {
         alert('Invalid User ID or Password');
       }
-    },
-    signUp() {
-      
-      console.log('User ID:', this.newUserId);
-      console.log('Password:', this.newPassword);
-    
-      this.isSignUp = false; 
-    },
-    toggleAuth() {
-      this.isSignUp = !this.isSignUp; 
-    }
+    };
+
+    const signUp = () => {
+      console.log('User ID:', state.value.newUserId);
+      console.log('Password:', state.value.newPassword);
+      state.value.isSignUp = false; // Switch to login view
+    };
+
+    const toggleAuth = () => {
+      state.value.isSignUp = !state.value.isSignUp; // Toggle between login and sign-up
+    };
+
+    return {
+      state,
+      loginWithGoogle,
+      loginWithCustomCredentials,
+      signUp,
+      toggleAuth
+    };
   }
 };
 </script>
