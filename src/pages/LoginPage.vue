@@ -35,15 +35,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'; // Import ref for reactive state
+import { ref } from 'vue'; 
 import { useRouter } from 'vue-router';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 export default {
   name: 'AuthPage',
   setup() {
-    const router = useRouter(); // Create a router instance
-
+    const router = useRouter(); 
     const state = ref({
       userId: '',
       password: '',
@@ -57,7 +56,7 @@ export default {
       const auth = getAuth();
       signInWithPopup(auth, provider)
         .then(() => {
-          router.push('/'); // Redirect to homepage
+          router.push('/'); 
         })
         .catch((error) => {
           console.error('Error logging in with Google:', error);
@@ -70,7 +69,7 @@ export default {
 
       if (state.value.userId === customUserId && state.value.password === customPassword) {
         localStorage.setItem('authenticated', 'true');
-        router.push('/'); // Redirect to homepage
+        router.push('/'); 
       } else {
         alert('Invalid User ID or Password');
       }
@@ -79,11 +78,11 @@ export default {
     const signUp = () => {
       console.log('User ID:', state.value.newUserId);
       console.log('Password:', state.value.newPassword);
-      state.value.isSignUp = false; // Switch to login view
+      state.value.isSignUp = false; 
     };
 
     const toggleAuth = () => {
-      state.value.isSignUp = !state.value.isSignUp; // Toggle between login and sign-up
+      state.value.isSignUp = !state.value.isSignUp; 
     };
 
     return {
