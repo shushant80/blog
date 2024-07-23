@@ -20,6 +20,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex';
 
@@ -59,7 +60,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
   display: flex;
-  align-items: flex-start; 
+  flex-direction: column;
 }
 
 .blog-item:hover {
@@ -69,26 +70,24 @@ export default {
 .blog-content {
   display: flex;
   gap: 15px;
-  width: 100%;
+  flex-direction: row;
 }
 
 .blog-image {
-  width: 30%; 
+  width: 30%;
   height: auto;
   border-radius: 8%;
-  margin-right: 10%;
 }
 
 .blog-details {
   display: flex;
   flex-direction: column;
-  width: 70%; 
+  width: 70%;
 }
 
 .blog-title {
   font-size: 24px;
   margin-bottom: 10px;
-  margin-top: 15%;
 }
 
 .blog-description {
@@ -104,12 +103,54 @@ export default {
   background-color: #007bff;
   color: #fff;
   border-radius: 4px;
-  text-decoration: none;
   width: 10%;
+  text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .read-more:hover {
   background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .blog-content {
+    flex-direction: column;
+  }
+
+  .blog-image {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .blog-details {
+    width: 100%;
+  }
+
+  .blog-title {
+    font-size: 20px;
+  }
+
+  .blog-description {
+    font-size: 12px;
+  }
+
+  .read-more {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page {
+    padding: 10px;
+  }
+
+  .blog-title {
+    font-size: 18px;
+  }
+
+  .blog-description {
+    font-size: 10px;
+  }
 }
 </style>
