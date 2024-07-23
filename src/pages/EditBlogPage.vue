@@ -41,7 +41,7 @@ export default {
     const description = ref('');
     const blogId = route.params.id;
 
-    // Fetch the blog details when the component is mounted
+   
     onMounted(() => {
       const blog = store.getters.getBlogs.find(b => b.id === parseInt(blogId));
       if (blog) {

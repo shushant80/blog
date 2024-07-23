@@ -32,7 +32,7 @@ export default {
         await axios.post('/api/signup', {
           email: this.email,
           password: this.password,
-        }); // Replace with your API endpoint
+        });
         this.$router.push('/login');
       } catch (error) {
         console.error('Error signing up:', error);

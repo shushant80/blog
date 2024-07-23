@@ -45,7 +45,7 @@ export default {
       password: '',
       newUserId: '',
       newPassword: '',
-      isSignUp: false // Toggle between login and sign-up forms
+      isSignUp: false 
     };
   },
   methods: {
@@ -72,15 +72,14 @@ export default {
       }
     },
     signUp() {
-      // Implement sign-up logic here
+      
       console.log('User ID:', this.newUserId);
       console.log('Password:', this.newPassword);
-      // For now, we'll just log the user data to the console
-      // In a real application, you would save this data to a database
-      this.isSignUp = false; // Switch back to login form after sign-up
+    
+      this.isSignUp = false; 
     },
     toggleAuth() {
-      this.isSignUp = !this.isSignUp; // Toggle between login and sign-up
+      this.isSignUp = !this.isSignUp; 
     }
   }
 };

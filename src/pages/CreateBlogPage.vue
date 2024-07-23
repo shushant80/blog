@@ -41,7 +41,7 @@ export default {
 
     const createBlog = () => {
       const blog = {
-        id: Date.now(), // Generate a unique ID for the blog
+        id: Date.now(), 
         title: title.value,
         subtitle: subtitle.value,
         image: image.value,

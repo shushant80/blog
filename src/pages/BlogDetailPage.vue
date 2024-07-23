@@ -1,26 +1,35 @@
 <template>
-  <div class="blog-details">
+  <div class="blog-details" v-if="blog">
     <h1>{{ blog.title }}</h1>
     <img :src="blog.image" alt="Blog image" class="blog-image" />
     <p>{{ blog.description }}</p>
     <router-link to="/">Back to Home</router-link>
     <router-link :to="`/edit-blog/${blog.id}`" class="edit-button">Edit</router-link>
   </div>
+  <div v-else>
+    <p>Loading...</p>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 
 export default {
   name: 'BlogDetailsPage',
-  computed: {
-    ...mapGetters(['getBlogs']),
-    blog() {
-      const route = useRoute();
-      const blogId = parseInt(route.params.id, 10);
-      return this.getBlogs.find(blog => blog.id === blogId) || {};
-    }
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+    const blogId = parseInt(route.params.id, 10);
+
+    const blog = computed(() => {
+      return store.getters.getBlogById(blogId);
+    });
+
+    return {
+      blog
+    };
   }
 };
 </script>

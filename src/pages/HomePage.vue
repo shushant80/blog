@@ -59,7 +59,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
   display: flex;
-  align-items: flex-start; /* Align items to the top */
+  align-items: flex-start; 
 }
 
 .blog-item:hover {
@@ -73,7 +73,7 @@ export default {
 }
 
 .blog-image {
-  width: 30%; /* Adjust as needed */
+  width: 30%; 
   height: auto;
   border-radius: 8%;
   margin-right: 10%;
@@ -82,7 +82,7 @@ export default {
 .blog-details {
   display: flex;
   flex-direction: column;
-  width: 70%; /* Adjust as needed */
+  width: 70%; 
 }
 
 .blog-title {
